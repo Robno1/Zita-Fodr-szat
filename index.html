@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zita Massage</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('Massage.otf') format('opentype');
+}
+
+h1 {
+  font-family: 'MyCustomFont', sans-serif;
+}
+
+body{
+
+    font-family:Poppins,sans-serif;
+    background:#fff;
+    color:#444;
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+header{
+
+    height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url("foto 1.png");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    flex-direction:column;
+}
+
+nav{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:30px 10%;
+}
+
+.logo{
+
+    font-size:30px;
+    font-family:'Playfair Display',serif;
+    color:#fff;
+}
+
+nav ul{
+
+    display:flex;
+    gap:35px;
+    list-style:none;
+}
+
+nav li{
+
+    transition:.3s;
+}
+
+nav li:hover{
+
+    color:#D2A347;
+    transform:translateY(-2px);
+}
+
+.hero{
+
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    flex-direction:column;
+
+    color:white;
+}
+
+.hero h1{
+  font-family: 'MyCustomFont', sans-serif;
+  font-size:70px;
+  margin-bottom:20px;
+}
+
+.hero p{
+
+    max-width:700px;
+    font-size:20px;
+    margin-bottom:40px;
+}
+
+button{
+
+    padding:18px 40px;
+
+    background:#C99A3D;
+
+    border:none;
+    color:white;
+    font-size:17px;
+    border-radius:50px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+    background:#b98728;
+}
+
+section{
+
+    padding:100px 10%;
+}
+
+.about{
+
+display:flex;
+gap:60px;
+align-items:center;
+}
+
+.about img{
+
+width:500px;
+border-radius:15px;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+}
+
+.text{
+
+flex:1;
+}
+
+.text h2{
+
+font-size:42px;
+font-family: 'MyCustomFont', sans-serif;
+margin-bottom:20px;
+color:#C99A3D;
+
+}
+
+.text p{
+
+margin-bottom:20px;
+}
+
+footer{
+
+background:#2f2f2f;
+
+color:white;
+
+padding:60px 10%;
+
+text-align:center;
+
+}
+
+footer h3{
+
+font-family:'Playfair Display',serif;
+font-size:34px;
+margin-bottom:15px;
+
+color:#D8B15A;
+
+}
+
+footer p{
+
+opacity:.8;
+margin-top:10px;
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width:992px){
+
+header{
+    height:90vh;
+}
+
+.hero h1{
+    font-size:52px;
+}
+
+.hero p{
+    width:90%;
+    font-size:18px;
+}
+
+.about{
+    flex-direction:column;
+    text-align:center;
+}
+
+.about img{
+    width:100%;
+    max-width:550px;
+}
+
+}
+
+
+/* ===========================
+   MOBIL
+=========================== */
+
+@media (max-width:768px){
+
+nav{
+
+    flex-direction:column;
+
+    gap:25px;
+
+    padding:25px;
+}
+
+.logo{
+
+    font-size:28px;
+}
+
+nav ul{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:18px;
+}
+
+header{
+
+    height:100vh;
+}
+
+.hero{
+
+    padding:0 25px;
+}
+
+.hero h1{
+
+    font-size:42px;
+
+    line-height:1.2;
+}
+
+.hero p{
+
+    font-size:17px;
+
+    width:100%;
+}
+
+button{
+
+    width:220px;
+
+    padding:16px;
+}
+
+section{
+
+    padding:70px 25px;
+}
+
+.about{
+
+    gap:40px;
+}
+
+.about img{
+
+    width:100%;
+
+    border-radius:12px;
+}
+
+.text h2{
+
+    font-size:34px;
+}
+
+.text p{
+
+    font-size:16px;
+}
+
+footer{
+
+    padding:50px 25px;
+}
+
+footer h3{
+
+    font-size:28px;
+}
+
+}
+
+
+/* ===========================
+   KIS MOBIL
+=========================== */
+
+@media (max-width:480px){
+
+.logo{
+
+    font-size:24px;
+}
+
+nav ul{
+
+    gap:12px;
+
+    font-size:15px;
+}
+
+.hero h1{
+
+    font-size:34px;
+}
+
+.hero p{
+
+    font-size:15px;
+}
+
+button{
+
+    width:100%;
+}
+
+.text h2{
+
+    font-size:30px;
+}
+
+footer h3{
+
+    font-size:24px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<div class="logo">
+Z Fodrászat & Massage
+</div>
+
+<ul>
+
+<li><a href="#">Kezdőlap</a></li>
+<li><a href="ZITA_ALBUM.html">ALBUM</a></li>
+<li><a href="https://www.facebook.com/zita.cseledes">Kapcsolat</a></li>
+
+</ul>
+
+</nav>
+
+<div class="hero">
+
+<h1>Engedd el a stresszt.</h1>
+
+<p>
+Tapasztald meg a teljes testi és lelki feltöltődést egy nyugodt,
+harmonikus környezetben.
+</p>
+
+<button onclick="window.location.href='https://www.facebook.com/zita.cseledes'">
+    Időpontfoglalás
+</button>
+
+</div>
+
+</header>
+
+<section>
+
+<div class="about">
+
+<img src="Borito.png">
+
+<div class="text">
+
+<h2>ALBUM</h2>
+
+<p>
+
+Z Fodrászat & Massage célja, hogy minden vendég számára nyugodt, kellemes
+környezetet biztosítson, ahol elfelejtheti a mindennapok stresszét.
+
+</p>
+
+<p>
+
+Professzionális terapeutáink személyre szabott kezelésekkel segítenek
+a teljes testi és lelki megújulásban.
+
+</p>
+
+<button onclick="window.location.href='ZITA_ALBUM.html'">
+    Tekincsd meg az albumomat
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>Zita Massage</h3>
+
+<p>
+A nyugalom ott kezdődik, ahol a tested végre ellazul.
+</p>
+
+<p>
+
+© 2026 Zita Massage 
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
