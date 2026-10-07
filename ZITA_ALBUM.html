@@ -1,135 +1,193 @@
+```html
 <!DOCTYPE html>
 <html lang="hu">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <title>ZITA</title>
 
+
 <style>
 
+/* =========================================
+   ALAP
+========================================= */
+
+html,
 body {
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+}
+
+
+body {
+
   font-family: Arial, sans-serif;
-  background-image: url('Hangulatos kreatív munkasarok.jpg');
+
+  background-image:
+    url('Hangulatos kreatív munkasarok.jpg');
+
   background-size: cover;
+
   background-position: center;
+
   background-repeat: no-repeat;
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
 
-  height: 100vh;
-  margin: 0;
-
   overflow: hidden;
+
 }
 
 
-/* =========================
-   KÖNYV
-========================= */
-
-.flip-book {
-  width: 500px;
-  height: 650px;
-
-  perspective: 2000px;
-
-  position: relative;
-}
-
+/* =========================================
+   FONT
+========================================= */
 
 @font-face {
+
   font-family: 'MyCustomFont';
-  src: url('animeace2_bld.otf') format('opentype');
+
+  src:
+    url('animeace2_bld.otf')
+    format('opentype');
+
 }
 
 
 h2 {
-  font-family: 'MyCustomFont', sans-serif;
+
+  font-family:
+    'MyCustomFont',
+    sans-serif;
+
 }
 
 
 a {
+
   text-decoration: none;
+
   color: #000000;
+
 }
 
 
-/* =========================
+/* =========================================
+   KÖNYV - DESKTOP
+========================================= */
+
+.flip-book {
+
+  width: 500px;
+
+  height: 650px;
+
+  position: relative;
+
+  perspective: 2000px;
+
+}
+
+
+/* =========================================
    OLDAL
-========================= */
+========================================= */
 
 .page {
+
   width: 100%;
+
   height: 100%;
 
   position: absolute;
 
-  transform-style: preserve-3d;
-  transform-origin: left;
-
-  transition: transform 1s ease;
-
   top: 0;
   left: 0;
+
+  transform-style: preserve-3d;
+
+  transform-origin: left center;
+
+  transition:
+    transform 1s ease;
+
 }
 
 
 .front,
 .back {
+
   position: absolute;
 
   width: 100%;
   height: 100%;
 
+  top: 0;
+  left: 0;
+
   backface-visibility: hidden;
 
   border: 1px solid #ccc;
 
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow:
+    0 0 10px rgba(0,0,0,0.1);
 
   border-radius: 6px;
 
   overflow: hidden;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   background-color: white;
+
 }
 
 
 .back {
+
   transform: rotateY(180deg);
+
 }
 
 
-.page img {
-  max-width: 90%;
-  max-height: 60%;
-
-  margin-bottom: 10px;
-
-  border-radius: 8px;
-}
-
-
-/* =========================
+/* =========================================
    GOMBOK
-========================= */
+========================================= */
 
 .buttons {
+
   margin-top: 20px;
+
 }
 
 
 button {
+
   padding: 10px 20px;
 
   margin: 0 10px;
@@ -137,6 +195,19 @@ button {
   font-size: 16px;
 
   cursor: pointer;
+
+}
+
+
+/* =========================================
+   MOBIL ÉRINTÉSI TERÜLETEK
+========================================= */
+
+.mobile-touch-left,
+.mobile-touch-right {
+
+  display: none;
+
 }
 
 
@@ -147,43 +218,57 @@ button {
 @media (max-width: 500px) {
 
   body {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
     justify-content: center;
+
   }
 
 
-  /* Könyv mérete mobilon */
+  /* -----------------------------------------
+     KÖNYV MÉRETE ÁLLÓ TELEFONON
+  ----------------------------------------- */
 
   .flip-book {
 
-    width: 95vw;
+    width: 94vw;
 
     height: auto;
 
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 500 / 650;
 
-    perspective: 2000px;
+    perspective: 1500px;
 
   }
 
 
-  /* A gombokat mobilon elrejtjük */
+  /* -----------------------------------------
+     GOMBOK ELREJTÉSE
+  ----------------------------------------- */
 
   .buttons {
+
     display: none;
+
   }
 
 
-  button {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-
-
-  /* Mobilon minden oldal pontosan kitölti a könyvet */
+  /* -----------------------------------------
+     OLDALAK
+  ----------------------------------------- */
 
   .page {
+
     width: 100%;
+
     height: 100%;
+
   }
 
 
@@ -191,32 +276,22 @@ button {
   .back {
 
     width: 100% !important;
+
     height: 100% !important;
+
+    border: none;
+
+    border-radius: 4px;
+
+    box-shadow:
+      0 0 8px rgba(0,0,0,0.2);
 
   }
 
-}
 
-
-/* =====================================================
-   MOBIL ÉRINTÉSI TERÜLETEK
-===================================================== */
-
-/*
-   Ezek láthatatlan területek.
-   Bal oldal = vissza
-   Jobb oldal = előre
-*/
-
-.mobile-touch-left,
-.mobile-touch-right {
-
-  display: none;
-
-}
-
-
-@media (max-width: 500px) {
+  /* -----------------------------------------
+     ÉRINTÉSI TERÜLETEK
+  ----------------------------------------- */
 
   .mobile-touch-left,
   .mobile-touch-right {
@@ -235,7 +310,107 @@ button {
 
     background: transparent;
 
-    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color:
+      transparent;
+
+    touch-action: manipulation;
+
+  }
+
+
+  .mobile-touch-left {
+
+    left: 0;
+
+  }
+
+
+  .mobile-touch-right {
+
+    right: 0;
+
+  }
+
+}
+
+
+/* =====================================================
+   FEKVŐ TELEFON
+===================================================== */
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+  body {
+
+    width: 100vw;
+
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+  }
+
+
+  .flip-book {
+
+    /*
+      A könyv magassága igazodik
+      a fekvő képernyőhöz.
+    */
+
+    height: 92vh;
+
+    width: auto;
+
+    aspect-ratio: 500 / 650;
+
+    perspective: 1500px;
+
+  }
+
+
+  .front,
+  .back {
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+  }
+
+
+  .buttons {
+
+    display: none;
+
+  }
+
+
+  .mobile-touch-left,
+  .mobile-touch-right {
+
+    display: block;
+
+    position: fixed;
+
+    top: 0;
+
+    height: 100vh;
+
+    width: 50vw;
+
+    z-index: 9999;
+
+    background: transparent;
+
+    -webkit-tap-highlight-color:
+      transparent;
+
+    touch-action: manipulation;
 
   }
 
@@ -256,34 +431,41 @@ button {
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
+<!-- =====================================================
+     KÖNYV
+===================================================== -->
+
 <div class="flip-book" id="flipBook">
 
 
-  <!-- =========================
+  <!-- =========================================
        BORÍTÓ
-  ========================= -->
+  ========================================= -->
 
-  <div class="page" data-index="0">
+  <div class="page"
+       data-index="0">
 
     <div
       class="front"
       style="
-        width: 500px;
-        height: 650px;
+        background-image:
+          url('Borito.png');
 
-        background-image:url('Borito.png');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
     </div>
 
@@ -293,20 +475,18 @@ button {
       <div
         class="front"
         style="
-          width: 500px;
-          height: 650px;
+          background-image:
+            url('borito belső.png');
 
-          background-image:url('borito belső.png');
+          background-size:
+            100% 100%;
 
-          background-size:100% 100%;
+          background-position:
+            center;
 
-          background-position:0px 0px;
-
-          background-repeat:no-repeat;
+          background-repeat:
+            no-repeat;
         ">
-
-        <h2></h2>
-
       </div>
 
     </div>
@@ -314,217 +494,207 @@ button {
   </div>
 
 
-  <!-- =========================
-       1-2. OLDAL
-  ========================= -->
+  <!-- =========================================
+       1-2
+  ========================================= -->
 
-  <div class="page" data-index="1">
+  <div class="page"
+       data-index="1">
 
     <div
       class="front"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('1. oldal.png');
 
-        background-image:url('1. oldal.png');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
 
     <div
       class="back"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('2. oldal.jpg');
 
-        background-image:url('2. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
   </div>
 
 
-  <!-- =========================
-       3-4. OLDAL
-  ========================= -->
+  <!-- =========================================
+       3-4
+  ========================================= -->
 
-  <div class="page" data-index="2">
+  <div class="page"
+       data-index="2">
 
     <div
       class="front"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('3. oldal.jpg');
 
-        background-image:url('3. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
 
     <div
       class="back"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('4. oldal.jpg');
 
-        background-image:url('4. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
   </div>
 
 
-  <!-- =========================
-       5-6. OLDAL
-  ========================= -->
+  <!-- =========================================
+       5-6
+  ========================================= -->
 
-  <div class="page" data-index="3">
+  <div class="page"
+       data-index="3">
 
     <div
       class="front"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('5. oldal.jpg');
 
-        background-image:url('5. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
 
     <div
       class="back"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('6. oldal.jpg');
 
-        background-image:url('6. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
   </div>
 
 
-  <!-- =========================
-       7-8. OLDAL
-  ========================= -->
+  <!-- =========================================
+       7-8
+  ========================================= -->
 
-  <div class="page" data-index="4">
+  <div class="page"
+       data-index="4">
 
     <div
       class="front"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('7. oldal.jpg');
 
-        background-image:url('7. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
 
     <div
       class="back"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('8. oldal.jpg');
 
-        background-image:url('8. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-
     </div>
 
   </div>
 
 
-  <!-- =========================
-       UTOLSÓ OLDAL + HÁTLAP
-  ========================= -->
+  <!-- =========================================
+       9 + HÁTLAP
+  ========================================= -->
 
-  <div class="page" data-index="5">
+  <div class="page"
+       data-index="5">
 
     <div
       class="front"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('9. oldal.jpg');
 
-        background-image:url('9. oldal.jpg');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
     </div>
 
@@ -532,21 +702,18 @@ button {
     <div
       class="back"
       style="
-        width:500px;
-        height:650px;
+        background-image:
+          url('back.png');
 
-        background-image:url('back.png');
+        background-size:
+          100% 100%;
 
-        background-size:100% 100%;
+        background-position:
+          center;
 
-        background-position:0px 0px;
-
-        background-repeat:no-repeat;
+        background-repeat:
+          no-repeat;
       ">
-
-      <h2></h2>
-      <h1></h1>
-
     </div>
 
   </div>
@@ -555,9 +722,9 @@ button {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      DESKTOP GOMBOK
-========================= -->
+===================================================== -->
 
 <div class="buttons">
 
@@ -572,9 +739,9 @@ button {
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      MOBIL ÉRINTÉSI TERÜLETEK
-========================= -->
+===================================================== -->
 
 <div
   class="mobile-touch-left"
@@ -592,7 +759,7 @@ button {
 
 
 /* =====================================================
-   ALAPVÁLTOZÓK
+   OLDALAK
 ===================================================== */
 
 const pages =
@@ -612,71 +779,73 @@ let flipping = false;
 
 function updatePages(direction) {
 
-  pages.forEach((page, index) => {
+  pages.forEach(
+    (page, index) => {
 
-    if (current === -1) {
+      if (current === -1) {
 
-      /* Könyv teljesen csukva */
+        /* Könyv csukva */
 
-      page.style.transform =
-        'rotateY(0deg)';
+        page.style.transform =
+          'rotateY(0deg)';
 
-      page.style.zIndex =
-        pages.length - index;
+        page.style.zIndex =
+          pages.length - index;
+
+      }
+
+      else if (index < current) {
+
+        /* Már átfordított */
+
+        page.style.transform =
+          'rotateY(-180deg)';
+
+        page.style.zIndex =
+          index;
+
+      }
+
+      else if (index === current) {
+
+        page.style.transform =
+          direction === 'next'
+            ? 'rotateY(-180deg)'
+            : 'rotateY(0deg)';
+
+        page.style.zIndex =
+          200;
+
+      }
+
+      else {
+
+        /* Még nem lapozott */
+
+        page.style.transform =
+          'rotateY(0deg)';
+
+        page.style.zIndex =
+          pages.length - index;
+
+      }
 
     }
-
-    else if (index < current) {
-
-      /* Már átfordított oldalak */
-
-      page.style.transform =
-        'rotateY(-180deg)';
-
-      page.style.zIndex =
-        index;
-
-    }
-
-    else if (index === current) {
-
-      /* Aktuális oldal */
-
-      page.style.transform =
-        direction === 'next'
-          ? 'rotateY(-180deg)'
-          : 'rotateY(0deg)';
-
-      page.style.zIndex =
-        200;
-
-    }
-
-    else {
-
-      /* Következő oldalak */
-
-      page.style.transform =
-        'rotateY(0deg)';
-
-      page.style.zIndex =
-        pages.length - index;
-
-    }
-
-  });
+  );
 
 }
 
 
 /* =====================================================
-   KÖVETKEZŐ OLDAL
+   ELŐRE
 ===================================================== */
 
 function nextPage() {
 
   if (
-    current < pages.length - 1 &&
+    current <
+      pages.length - 1
+    &&
     !flipping
   ) {
 
@@ -687,11 +856,14 @@ function nextPage() {
     updatePages('next');
 
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      flipping = false;
+        flipping = false;
 
-    }, 1000);
+      },
+      1000
+    );
 
   }
 
@@ -699,13 +871,14 @@ function nextPage() {
 
 
 /* =====================================================
-   ELŐZŐ OLDAL
+   VISSZA
 ===================================================== */
 
 function prevPage() {
 
   if (
-    current > -1 &&
+    current > -1
+    &&
     !flipping
   ) {
 
@@ -716,11 +889,14 @@ function prevPage() {
     current--;
 
 
-    setTimeout(() => {
+    setTimeout(
+      () => {
 
-      flipping = false;
+        flipping = false;
 
-    }, 1000);
+      },
+      1000
+    );
 
   }
 
@@ -743,10 +919,7 @@ const mobileRight =
   );
 
 
-/*
-   BAL OLDAL MEGÉRINTÉSE
-   = VISSZA
-*/
+/* BAL OLDAL */
 
 mobileLeft.addEventListener(
   'touchstart',
@@ -757,14 +930,13 @@ mobileLeft.addEventListener(
     prevPage();
 
   },
-  { passive: false }
+  {
+    passive: false
+  }
 );
 
 
-/*
-   JOBB OLDAL MEGÉRINTÉSE
-   = ELŐRE
-*/
+/* JOBB OLDAL */
 
 mobileRight.addEventListener(
   'touchstart',
@@ -775,7 +947,9 @@ mobileRight.addEventListener(
     nextPage();
 
   },
-  { passive: false }
+  {
+    passive: false
+  }
 );
 
 
@@ -785,11 +959,13 @@ mobileRight.addEventListener(
 
 updatePages('next');
 
+
 </script>
 
 
 </body>
 </html>
+```
 
 
 
