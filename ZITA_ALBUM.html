@@ -42,6 +42,11 @@ body {
     overflow: hidden;
 }
 
+
+/* =========================================================
+   BETŰTÍPUS
+========================================================= */
+
 @font-face {
     font-family: 'MyCustomFont';
     src: url('animeace2_bld.otf') format('opentype');
@@ -54,6 +59,105 @@ h2 {
 a {
     text-decoration: none;
     color: #000;
+}
+
+
+/* =========================================================
+   PC LOADING SCREEN
+========================================================= */
+
+#loadingScreen {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: #111;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    z-index: 999999;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+}
+
+
+/* Loading szöveg */
+
+.loading-text {
+
+    color: white;
+
+    font-family:
+        'MyCustomFont',
+        Arial,
+        sans-serif;
+
+    font-size: 28px;
+
+    letter-spacing: 2px;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+
+/* Forgó loading kör */
+
+.loading-spinner {
+
+    width: 45px;
+    height: 45px;
+
+    border: 4px solid rgba(255,255,255,0.25);
+
+    border-top: 4px solid white;
+
+    border-radius: 50%;
+
+    animation:
+        loadingSpin 0.9s linear infinite;
+}
+
+
+@keyframes loadingSpin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* Loading eltűnése */
+
+#loadingScreen.loaded {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
 }
 
 
@@ -71,6 +175,7 @@ a {
 ========================================================= */
 
 .flip-book {
+
     width: 500px;
     height: 650px;
 
@@ -85,6 +190,7 @@ a {
 ========================================================= */
 
 .page {
+
     width: 100%;
     height: 100%;
 
@@ -97,7 +203,8 @@ a {
 
     transform-origin: left center;
 
-    transition: transform 1s ease;
+    transition:
+        transform 1s ease;
 }
 
 
@@ -107,6 +214,7 @@ a {
 
 .front,
 .back {
+
     position: absolute;
 
     width: 100%;
@@ -119,15 +227,19 @@ a {
 
     border: 1px solid #ccc;
 
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow:
+        0 0 10px rgba(0,0,0,0.1);
 
     border-radius: 6px;
 
     overflow: hidden;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
 
     background-color: white;
@@ -143,10 +255,12 @@ a {
 ========================================================= */
 
 .buttons {
+
     margin-top: 20px;
 }
 
 button {
+
     padding: 10px 20px;
 
     margin: 0 10px;
@@ -163,6 +277,7 @@ button {
 
 .mobile-touch-left,
 .mobile-touch-right {
+
     display: none;
 }
 
@@ -173,13 +288,8 @@ button {
 
 @media (max-width: 600px) and (orientation: portrait) {
 
-    html,
     body {
-        width: 100%;
-        height: 100%;
-    }
 
-    body {
         width: 100vw;
         height: 100vh;
 
@@ -195,25 +305,37 @@ button {
 
 
     /*
-       Álló módban a könyv teljesen eltűnik.
+       Loading screen mobilon NEM jelenik meg.
+    */
+
+    #loadingScreen {
+
+        display: none !important;
+    }
+
+
+    /*
+       Könyv elrejtése álló helyzetben.
     */
 
     .flip-book {
+
         display: none;
     }
 
 
     /*
-       PC gombok eltűnnek.
+       PC gombok elrejtése.
     */
 
     .buttons {
+
         display: none;
     }
 
 
     /*
-       Elfordításra felszólító szöveg.
+       Elfordítási üzenet.
     */
 
     .rotate-message {
@@ -247,7 +369,8 @@ button {
             Arial,
             sans-serif;
 
-        font-size: clamp(22px, 7vw, 40px);
+        font-size:
+            clamp(22px, 7vw, 40px);
 
         line-height: 1.3;
     }
@@ -257,13 +380,13 @@ button {
 
 /* =========================================================
    MOBIL - FEKVŐ HELYZET
-   TELJES KÖNYVNEK BE KELL FÉRNIE
 ========================================================= */
 
 @media (max-width: 900px) and (orientation: landscape) {
 
     html,
     body {
+
         width: 100%;
         height: 100%;
 
@@ -275,11 +398,6 @@ button {
     body {
 
         width: 100vw;
-
-        /*
-           A dvh a telefon ténylegesen látható
-           magasságát használja.
-        */
 
         height: 100dvh;
 
@@ -296,22 +414,30 @@ button {
 
 
     /*
-       Az "elfordítás" szöveg eltűnik.
+       Loading screen mobilon NEM jelenik meg.
+    */
+
+    #loadingScreen {
+
+        display: none !important;
+    }
+
+
+    /*
+       Elfordítási üzenet eltűnik.
     */
 
     .rotate-message {
+
         display: none;
     }
 
 
     /*
-       A könyv méretezése.
+       Könyv méretezése.
 
-       A könyv eredeti aránya:
-       500 x 650
-
-       A magasságot a kijelzőhöz igazítjuk,
-       ezért nem fog lelógni az aljáról.
+       Mindig teljes egészében belefér
+       a telefon kijelzőjébe.
     */
 
     .flip-book {
@@ -339,38 +465,26 @@ button {
 
 
     /*
-       PC-s gombok eltűnnek.
+       PC gombok eltűnnek.
     */
 
     .buttons {
+
         display: none;
     }
 
-
-    /*
-       A lapok pontosan kitöltik a könyvet.
-    */
 
     .page {
 
         width: 100%;
         height: 100%;
-
-        top: 0;
-        left: 0;
     }
 
-
-    /*
-       Mobilon nincs keret,
-       így minden pixel a könyvhöz tartozik.
-    */
 
     .front,
     .back {
 
         width: 100% !important;
-
         height: 100% !important;
 
         border: none;
@@ -409,6 +523,7 @@ button {
 
 
     .mobile-touch-left {
+
         left: 0;
     }
 
@@ -418,6 +533,7 @@ button {
     */
 
     .mobile-touch-right {
+
         right: 0;
     }
 
@@ -425,10 +541,12 @@ button {
 
 
 /* =========================================================
-   NAGYOBB TABLET FEKVŐ MÓDBAN
+   TABLET FEKVŐ
 ========================================================= */
 
-@media (min-width: 601px) and (max-width: 900px) and (orientation: landscape) {
+@media (min-width: 601px)
+       and (max-width: 900px)
+       and (orientation: landscape) {
 
     .flip-book {
 
@@ -450,7 +568,8 @@ button {
    NAGYON ALACSONY FEKVŐ KIJELZŐ
 ========================================================= */
 
-@media (max-height: 400px) and (orientation: landscape) {
+@media (max-height: 400px)
+       and (orientation: landscape) {
 
     .flip-book {
 
@@ -472,7 +591,8 @@ button {
 
 @supports (padding: env(safe-area-inset-left)) {
 
-    @media (max-width: 900px) and (orientation: landscape) {
+    @media (max-width: 900px)
+           and (orientation: landscape) {
 
         body {
 
@@ -497,8 +617,24 @@ button {
 
 
 <!-- =====================================================
-     ELFORDÍTÁSI ÜZENET
-===================================================== -->
+     PC LOADING SCREEN
+========================================================= -->
+
+<div id="loadingScreen">
+
+    <div class="loading-text">
+        LOADING...
+    </div>
+
+    <div class="loading-spinner"></div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MOBIL ELFORDÍTÁSI ÜZENET
+========================================================= -->
 
 <div class="rotate-message">
     FORDÍTSD OLDALRA A TELEFONT!
@@ -508,7 +644,7 @@ button {
 
 <!-- =====================================================
      KÖNYV
-===================================================== -->
+========================================================= -->
 
 <div class="flip-book" id="flipBook">
 
@@ -560,6 +696,7 @@ button {
             ">
         </div>
 
+
         <div
             class="back"
             style="
@@ -587,6 +724,7 @@ button {
                 background-repeat:no-repeat;
             ">
         </div>
+
 
         <div
             class="back"
@@ -616,6 +754,7 @@ button {
             ">
         </div>
 
+
         <div
             class="back"
             style="
@@ -644,6 +783,7 @@ button {
             ">
         </div>
 
+
         <div
             class="back"
             style="
@@ -671,6 +811,7 @@ button {
                 background-repeat:no-repeat;
             ">
         </div>
+
 
         <div
             class="back"
@@ -715,6 +856,7 @@ button {
     id="mobileLeft">
 </div>
 
+
 <div
     class="mobile-touch-right"
     id="mobileRight">
@@ -723,6 +865,139 @@ button {
 
 
 <script>
+
+/* =========================================================
+   PC LOADING
+========================================================= */
+
+const isMobile =
+    window.matchMedia(
+        '(max-width: 900px)'
+    ).matches;
+
+
+/*
+   Csak PC-n fut le a loading rendszer.
+*/
+
+if (!isMobile) {
+
+    const loadingScreen =
+        document.getElementById(
+            'loadingScreen'
+        );
+
+
+    /*
+       Megvárjuk az összes képet.
+    */
+
+    const images = [
+
+        'Hangulatos kreatív munkasarok.jpg',
+
+        'Borito.png',
+        'borito belső.png',
+
+        '1. oldal.png',
+        '2. oldal.jpg',
+
+        '3. oldal.jpg',
+        '4. oldal.jpg',
+
+        '5. oldal.jpg',
+        '6. oldal.jpg',
+
+        '7. oldal.jpg',
+        '8. oldal.jpg',
+
+        '9. oldal.jpg',
+        'back.png'
+    ];
+
+
+    let loadedImages = 0;
+
+
+    function imageLoaded() {
+
+        loadedImages++;
+
+        if (
+            loadedImages >=
+            images.length
+        ) {
+
+            finishLoading();
+
+        }
+
+    }
+
+
+    function finishLoading() {
+
+        /*
+           Egy kis késleltetés,
+           hogy ne villanjon fel
+           nagyon rövid ideig a loading.
+        */
+
+        setTimeout(() => {
+
+            loadingScreen.classList.add(
+                'loaded'
+            );
+
+        }, 300);
+
+    }
+
+
+    images.forEach(
+        function(src) {
+
+            const img =
+                new Image();
+
+            img.onload =
+                imageLoaded;
+
+            img.onerror =
+                imageLoaded;
+
+            img.src = src;
+
+        }
+    );
+
+
+    /*
+       A custom font betöltését is megvárjuk,
+       ha a böngésző támogatja.
+    */
+
+    if (
+        document.fonts &&
+        document.fonts.ready
+    ) {
+
+        document.fonts.ready.then(
+            function() {
+
+                /*
+                   A képek betöltését
+                   továbbra is az
+                   imageLoaded kezeli.
+                */
+
+            }
+        );
+
+    }
+
+}
+
 
 /* =========================================================
    OLDALAK
@@ -744,56 +1019,58 @@ let flipping = false;
 
 function updatePages(direction) {
 
-    pages.forEach((page, index) => {
+    pages.forEach(
+        (page, index) => {
 
-        if (current === -1) {
+            if (current === -1) {
 
-            page.style.transform =
-                'rotateY(0deg)';
+                page.style.transform =
+                    'rotateY(0deg)';
 
-            page.style.zIndex =
-                pages.length - index;
+                page.style.zIndex =
+                    pages.length - index;
+
+            }
+
+            else if (index < current) {
+
+                page.style.transform =
+                    'rotateY(-180deg)';
+
+                page.style.zIndex =
+                    index;
+
+            }
+
+            else if (index === current) {
+
+                page.style.transform =
+                    direction === 'next'
+                        ? 'rotateY(-180deg)'
+                        : 'rotateY(0deg)';
+
+                page.style.zIndex = 200;
+
+            }
+
+            else {
+
+                page.style.transform =
+                    'rotateY(0deg)';
+
+                page.style.zIndex =
+                    pages.length - index;
+
+            }
 
         }
-
-        else if (index < current) {
-
-            page.style.transform =
-                'rotateY(-180deg)';
-
-            page.style.zIndex =
-                index;
-
-        }
-
-        else if (index === current) {
-
-            page.style.transform =
-                direction === 'next'
-                    ? 'rotateY(-180deg)'
-                    : 'rotateY(0deg)';
-
-            page.style.zIndex = 200;
-
-        }
-
-        else {
-
-            page.style.transform =
-                'rotateY(0deg)';
-
-            page.style.zIndex =
-                pages.length - index;
-
-        }
-
-    });
+    );
 
 }
 
 
 /* =========================================================
-   KÖVETKEZŐ
+   KÖVETKEZŐ OLDAL
 ========================================================= */
 
 function nextPage() {
@@ -809,18 +1086,22 @@ function nextPage() {
 
         updatePages('next');
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            flipping = false;
+                flipping = false;
 
-        }, 1000);
+            },
+            1000
+        );
+
     }
 
 }
 
 
 /* =========================================================
-   ELŐZŐ
+   ELŐZŐ OLDAL
 ========================================================= */
 
 function prevPage() {
@@ -836,11 +1117,15 @@ function prevPage() {
 
         current--;
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            flipping = false;
+                flipping = false;
 
-        }, 1000);
+            },
+            1000
+        );
+
     }
 
 }
@@ -851,13 +1136,17 @@ function prevPage() {
 ========================================================= */
 
 const mobileLeft =
-    document.getElementById('mobileLeft');
+    document.getElementById(
+        'mobileLeft'
+    );
 
 const mobileRight =
-    document.getElementById('mobileRight');
+    document.getElementById(
+        'mobileRight'
+    );
 
 
-/* Bal oldal = vissza */
+/* Bal oldal = előző */
 
 mobileLeft.addEventListener(
     'touchstart',
@@ -874,7 +1163,7 @@ mobileLeft.addEventListener(
 );
 
 
-/* Jobb oldal = előre */
+/* Jobb oldal = következő */
 
 mobileRight.addEventListener(
     'touchstart',
