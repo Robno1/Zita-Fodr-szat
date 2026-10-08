@@ -58,6 +58,55 @@ body {
 
 
 /* =========================================
+   PC TÖLTŐKÉPERNYŐ
+========================================= */
+
+#loadingScreen {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 999999;
+
+  background-color: #000000;
+
+  background-image:
+    url('loading.png');
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+/* Mobilon a töltőképernyő mindig rejtve */
+
+@media (max-width: 900px) {
+
+  #loadingScreen {
+
+    display: none !important;
+
+  }
+
+}
+
+
+/* =========================================
    FONT
 ========================================= */
 
@@ -438,6 +487,13 @@ button {
 
 
 <!-- =====================================================
+     PC TÖLTŐKÉPERNYŐ
+===================================================== -->
+
+<div id="loadingScreen"></div>
+
+
+<!-- =====================================================
      KÖNYV
 ===================================================== -->
 
@@ -755,6 +811,127 @@ button {
 
 
 <script>
+
+
+/* =====================================================
+   PC TÖLTŐKÉPERNYŐ
+===================================================== */
+
+const loadingScreen =
+  document.getElementById('loadingScreen');
+
+
+/*
+   Csak PC-n működik a töltőképernyő.
+   Mobilon azonnal eltűnik.
+*/
+
+function isPC() {
+
+  return window.innerWidth > 900;
+
+}
+
+
+/*
+   A könyv összes képének megvárása.
+*/
+
+function waitForImages() {
+
+  const images = [];
+
+  document
+    .querySelectorAll('*')
+    .forEach(element => {
+
+      const style =
+        window.getComputedStyle(element);
+
+      const background =
+        style.backgroundImage;
+
+      if (
+        background &&
+        background !== 'none'
+      ) {
+
+        const match =
+          background.match(
+            /url\(["']?(.*?)["']?\)/
+          );
+
+        if (match && match[1]) {
+
+          const image =
+            new Image();
+
+          image.src =
+            match[1];
+
+          images.push(image);
+
+        }
+
+      }
+
+    });
+
+
+  return Promise.all(
+
+    images.map(image => {
+
+      return new Promise(resolve => {
+
+        if (image.complete) {
+
+          resolve();
+
+        }
+
+        else {
+
+          image.onload =
+            resolve;
+
+          image.onerror =
+            resolve;
+
+        }
+
+      });
+
+    })
+
+  );
+
+}
+
+
+/*
+   Ha minden kép betöltődött,
+   eltűnik a loading screen.
+*/
+
+if (isPC()) {
+
+  waitForImages()
+    .then(() => {
+
+      loadingScreen.style.display =
+        'none';
+
+    });
+
+}
+
+else {
+
+  loadingScreen.style.display =
+    'none';
+
+}
 
 
 /* =====================================================
