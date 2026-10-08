@@ -496,12 +496,115 @@ button {
     }
 }
 
+
+/* =========================================
+   MOBIL - TELEFON FORDÍTÁSA
+========================================= */
+
+#rotateScreen {
+    display: none;
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+
+    #rotateScreen {
+        position: fixed;
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        background: #ffffff;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        z-index: 1000000;
+
+        padding: 30px;
+    }
+
+    #rotateScreen .rotate-icon {
+        font-size: 70px;
+        line-height: 1;
+        margin-bottom: 25px;
+        color: #444;
+    }
+
+    #rotateScreen .rotate-title {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    #rotateScreen .rotate-subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: #777;
+        max-width: 300px;
+    }
+
+    /* Álló telefonon a könyv ne legyen látható */
+    .flip-book,
+    .buttons,
+    .mobile-touch-left,
+    .mobile-touch-right {
+        visibility: hidden;
+    }
+
+    /* Mobilon nincs PC-s loading screen */
+    #loadingScreen {
+        display: none !important;
+    }
+}
+
+/* Fekvő mobilon a könyv normálisan jelenik meg */
+@media (max-width: 900px) and (orientation: landscape) {
+
+    #rotateScreen {
+        display: none !important;
+    }
+
+    #loadingScreen {
+        display: none !important;
+    }
+
+    .flip-book,
+    .mobile-touch-left,
+    .mobile-touch-right {
+        visibility: visible;
+    }
+}
+
+/* PC-n a loading screen működjön */
+@media (min-width: 901px) {
+    #loadingScreen {
+        display: flex;
+    }
+}
+
 </style>
 
 </head>
 
 
 <body>
+
+<!-- =========================================
+     MOBIL - FORDÍTSD MEG A TELEFONT
+========================================= -->
+
+<div id="rotateScreen">
+    <div class="rotate-icon">↻</div>
+    <div class="rotate-title">Fordítsd meg a telefont</div>
+    <div class="rotate-subtitle">Fekvő helyzetben jelenik meg a könyv.</div>
+</div>
 
 <!-- =========================================
      TÖLTŐKÉPERNYŐ
@@ -1046,17 +1149,28 @@ mobileRight.addEventListener(
 updatePages('next');
 
 /* =========================================
-   ÖSSZES KÉP BETÖLTÉSÉNEK ELLENŐRZÉSE
+   LOADING SCREEN - CSAK PC-N
 ========================================= */
 
 window.addEventListener('load', async function () {
+
+    /*
+       900px vagy az alatt mobilnak tekintjük.
+       Mobilon NINCS loading screen.
+       Álló helyzetben a rotateScreen látszik,
+       fekvő helyzetben pedig rögtön a könyv.
+    */
+
+    if (window.innerWidth <= 900) {
+        return;
+    }
 
     const loadingScreen =
         document.getElementById('loadingScreen');
 
     try {
 
-        // Megvárjuk a betűk betöltését is
+        // Betűtípusok betöltésének megvárása
         if (document.fonts) {
             await document.fonts.ready;
         }
@@ -1139,7 +1253,7 @@ window.addEventListener('load', async function () {
 
         );
 
-        // Kis késleltetés, hogy ne villanjon fel
+        // Rövid késleltetés, majd loading eltüntetése
         setTimeout(() => {
 
             loadingScreen.classList.add('hidden');
@@ -1161,8 +1275,6 @@ window.addEventListener('load', async function () {
             error
         );
 
-        // Hiba esetén is eltüntetjük
-        // a loading screent
         loadingScreen.classList.add('hidden');
 
         setTimeout(() => {
