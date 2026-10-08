@@ -1,485 +1,495 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width,
                initial-scale=1.0,
                maximum-scale=1.0,
-               user-scalable=no">
+               user-scalable=no,
+               viewport-fit=cover">
 
 <title>ZITA</title>
 
-
 <style>
 
-/* =========================================
+/* =========================================================
    ALAP
-========================================= */
+========================================================= */
 
 html,
 body {
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-
 
 body {
+    font-family: Arial, sans-serif;
 
-  font-family: Arial, sans-serif;
+    background-image: url('Hangulatos kreatív munkasarok.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-  background-image:
-    url('Hangulatos kreatív munkasarok.jpg');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-  background-size: cover;
-
-  background-position: center;
-
-  background-repeat: no-repeat;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  overflow: hidden;
-
+    overflow: hidden;
 }
-
-
-/* =========================================
-   PC TÖLTŐKÉPERNYŐ
-========================================= */
-
-#loadingScreen {
-
-  position: fixed;
-
-  top: 0;
-  left: 0;
-
-  width: 100vw;
-  height: 100vh;
-
-  z-index: 999999;
-
-  background-color: #000000;
-
-  background-image:
-    url('loading.png');
-
-  background-size: cover;
-
-  background-position: center;
-
-  background-repeat: no-repeat;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-/* Mobilon a töltőképernyő mindig rejtve */
-
-@media (max-width: 900px) {
-
-  #loadingScreen {
-
-    display: none !important;
-
-  }
-
-}
-
-
-/* =========================================
-   FONT
-========================================= */
 
 @font-face {
-
-  font-family: 'MyCustomFont';
-
-  src:
-    url('animeace2_bld.otf')
-    format('opentype');
-
+    font-family: 'MyCustomFont';
+    src: url('animeace2_bld.otf') format('opentype');
 }
-
 
 h2 {
-
-  font-family:
-    'MyCustomFont',
-    sans-serif;
-
+    font-family: 'MyCustomFont', sans-serif;
 }
-
 
 a {
-
-  text-decoration: none;
-
-  color: #000000;
-
+    text-decoration: none;
+    color: #000;
 }
 
 
-/* =========================================
-   KÖNYV - DESKTOP
-========================================= */
+/* =========================================================
+   ELFORDÍTÁSI ÜZENET
+========================================================= */
+
+.rotate-message {
+    display: none;
+}
+
+
+/* =========================================================
+   KÖNYV
+========================================================= */
 
 .flip-book {
+    width: 500px;
+    height: 650px;
 
-  width: 500px;
+    position: relative;
 
-  height: 650px;
-
-  position: relative;
-
-  perspective: 2000px;
-
+    perspective: 2000px;
 }
 
 
-/* =========================================
-   OLDAL
-========================================= */
+/* =========================================================
+   LAP
+========================================================= */
 
 .page {
+    width: 100%;
+    height: 100%;
 
-  width: 100%;
+    position: absolute;
 
-  height: 100%;
+    top: 0;
+    left: 0;
 
-  position: absolute;
+    transform-style: preserve-3d;
 
-  top: 0;
-  left: 0;
+    transform-origin: left center;
 
-  transform-style: preserve-3d;
-
-  transform-origin: left center;
-
-  transition:
-    transform 1s ease;
-
+    transition: transform 1s ease;
 }
 
+
+/* =========================================================
+   LAP ELEJE / HÁTULJA
+========================================================= */
 
 .front,
 .back {
+    position: absolute;
 
-  position: absolute;
+    width: 100%;
+    height: 100%;
 
-  width: 100%;
-  height: 100%;
+    top: 0;
+    left: 0;
 
-  top: 0;
-  left: 0;
+    backface-visibility: hidden;
 
-  backface-visibility: hidden;
+    border: 1px solid #ccc;
 
-  border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 
-  box-shadow:
-    0 0 10px rgba(0,0,0,0.1);
+    border-radius: 6px;
 
-  border-radius: 6px;
+    overflow: hidden;
 
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  background-color: white;
-
+    background-color: white;
 }
-
 
 .back {
-
-  transform: rotateY(180deg);
-
+    transform: rotateY(180deg);
 }
 
 
-/* =========================================
-   GOMBOK
-========================================= */
+/* =========================================================
+   PC GOMBOK
+========================================================= */
 
 .buttons {
-
-  margin-top: 20px;
-
+    margin-top: 20px;
 }
-
 
 button {
+    padding: 10px 20px;
 
-  padding: 10px 20px;
+    margin: 0 10px;
 
-  margin: 0 10px;
+    font-size: 16px;
 
-  font-size: 16px;
-
-  cursor: pointer;
-
+    cursor: pointer;
 }
 
 
-/* =========================================
+/* =========================================================
    MOBIL ÉRINTÉSI TERÜLETEK
-========================================= */
+========================================================= */
 
 .mobile-touch-left,
 .mobile-touch-right {
-
-  display: none;
-
-}
-
-
-/* =====================================================
-   MOBIL
-===================================================== */
-
-@media (max-width: 500px) {
-
-  body {
-
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-  }
-
-
-  /* -----------------------------------------
-     KÖNYV MÉRETE ÁLLÓ TELEFONON
-  ----------------------------------------- */
-
-  .flip-book {
-
-    width: 94vw;
-
-    height: auto;
-
-    aspect-ratio: 500 / 650;
-
-    perspective: 1500px;
-
-  }
-
-
-  /* -----------------------------------------
-     GOMBOK ELREJTÉSE
-  ----------------------------------------- */
-
-  .buttons {
-
     display: none;
-
-  }
-
-
-  /* -----------------------------------------
-     OLDALAK
-  ----------------------------------------- */
-
-  .page {
-
-    width: 100%;
-
-    height: 100%;
-
-  }
+}
 
 
-  .front,
-  .back {
+/* =========================================================
+   MOBIL - ÁLLÓ HELYZET
+========================================================= */
 
-    width: 100% !important;
+@media (max-width: 600px) and (orientation: portrait) {
 
-    height: 100% !important;
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
 
-    border: none;
+    body {
+        width: 100vw;
+        height: 100vh;
 
-    border-radius: 4px;
+        background: #111;
 
-    box-shadow:
-      0 0 8px rgba(0,0,0,0.2);
+        display: flex;
 
-  }
+        align-items: center;
+        justify-content: center;
 
-
-  /* -----------------------------------------
-     ÉRINTÉSI TERÜLETEK
-  ----------------------------------------- */
-
-  .mobile-touch-left,
-  .mobile-touch-right {
-
-    display: block;
-
-    position: fixed;
-
-    top: 0;
-
-    height: 100vh;
-
-    width: 50vw;
-
-    z-index: 9999;
-
-    background: transparent;
-
-    -webkit-tap-highlight-color:
-      transparent;
-
-    touch-action: manipulation;
-
-  }
+        overflow: hidden;
+    }
 
 
-  .mobile-touch-left {
+    /*
+       Álló módban a könyv teljesen eltűnik.
+    */
 
-    left: 0;
+    .flip-book {
+        display: none;
+    }
 
-  }
+
+    /*
+       PC gombok eltűnnek.
+    */
+
+    .buttons {
+        display: none;
+    }
 
 
-  .mobile-touch-right {
+    /*
+       Elfordításra felszólító szöveg.
+    */
 
-    right: 0;
+    .rotate-message {
 
-  }
+        display: flex;
+
+        position: fixed;
+
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        padding: 30px;
+
+        box-sizing: border-box;
+
+        z-index: 10000;
+
+        color: white;
+
+        background: #111;
+
+        font-family:
+            'MyCustomFont',
+            Arial,
+            sans-serif;
+
+        font-size: clamp(22px, 7vw, 40px);
+
+        line-height: 1.3;
+    }
 
 }
 
 
-/* =====================================================
-   FEKVŐ TELEFON
-===================================================== */
+/* =========================================================
+   MOBIL - FEKVŐ HELYZET
+   TELJES KÖNYVNEK BE KELL FÉRNIE
+========================================================= */
 
 @media (max-width: 900px) and (orientation: landscape) {
 
-  body {
+    html,
+    body {
+        width: 100%;
+        height: 100%;
 
-    width: 100vw;
-
-    height: 100vh;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-  }
+        margin: 0;
+        padding: 0;
+    }
 
 
-  .flip-book {
+    body {
+
+        width: 100vw;
+
+        /*
+           A dvh a telefon ténylegesen látható
+           magasságát használja.
+        */
+
+        height: 100dvh;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        overflow: hidden;
+
+        background-position: center;
+        background-size: cover;
+    }
+
 
     /*
-      A könyv magassága igazodik
-      a fekvő képernyőhöz.
+       Az "elfordítás" szöveg eltűnik.
     */
 
-    height: 92vh;
-
-    width: auto;
-
-    aspect-ratio: 500 / 650;
-
-    perspective: 1500px;
-
-  }
+    .rotate-message {
+        display: none;
+    }
 
 
-  .front,
-  .back {
+    /*
+       A könyv méretezése.
 
-    width: 100% !important;
+       A könyv eredeti aránya:
+       500 x 650
 
-    height: 100% !important;
+       A magasságot a kijelzőhöz igazítjuk,
+       ezért nem fog lelógni az aljáról.
+    */
 
-  }
+    .flip-book {
 
+        display: block;
 
-  .buttons {
+        position: relative;
 
-    display: none;
+        height: calc(100dvh - 16px);
 
-  }
+        width: auto;
 
+        aspect-ratio: 500 / 650;
 
-  .mobile-touch-left,
-  .mobile-touch-right {
+        max-height: calc(100dvh - 16px);
 
-    display: block;
+        max-width: calc(100vw - 16px);
 
-    position: fixed;
+        perspective: 1500px;
 
-    top: 0;
+        flex-shrink: 0;
 
-    height: 100vh;
-
-    width: 50vw;
-
-    z-index: 9999;
-
-    background: transparent;
-
-    -webkit-tap-highlight-color:
-      transparent;
-
-    touch-action: manipulation;
-
-  }
+        margin: 0 auto;
+    }
 
 
-  .mobile-touch-left {
+    /*
+       PC-s gombok eltűnnek.
+    */
 
-    left: 0;
+    .buttons {
+        display: none;
+    }
 
-  }
+
+    /*
+       A lapok pontosan kitöltik a könyvet.
+    */
+
+    .page {
+
+        width: 100%;
+        height: 100%;
+
+        top: 0;
+        left: 0;
+    }
 
 
-  .mobile-touch-right {
+    /*
+       Mobilon nincs keret,
+       így minden pixel a könyvhöz tartozik.
+    */
 
-    right: 0;
+    .front,
+    .back {
 
-  }
+        width: 100% !important;
+
+        height: 100% !important;
+
+        border: none;
+
+        border-radius: 0;
+
+        box-shadow: none;
+    }
+
+
+    /*
+       Bal oldal = előző oldal
+    */
+
+    .mobile-touch-left,
+    .mobile-touch-right {
+
+        display: block;
+
+        position: fixed;
+
+        top: 0;
+
+        height: 100dvh;
+
+        width: 50vw;
+
+        z-index: 9999;
+
+        background: transparent;
+
+        -webkit-tap-highlight-color: transparent;
+
+        touch-action: manipulation;
+    }
+
+
+    .mobile-touch-left {
+        left: 0;
+    }
+
+
+    /*
+       Jobb oldal = következő oldal
+    */
+
+    .mobile-touch-right {
+        right: 0;
+    }
+
+}
+
+
+/* =========================================================
+   NAGYOBB TABLET FEKVŐ MÓDBAN
+========================================================= */
+
+@media (min-width: 601px) and (max-width: 900px) and (orientation: landscape) {
+
+    .flip-book {
+
+        height: calc(100dvh - 20px);
+
+        width: auto;
+
+        aspect-ratio: 500 / 650;
+
+        max-height: calc(100dvh - 20px);
+
+        max-width: calc(100vw - 20px);
+    }
+
+}
+
+
+/* =========================================================
+   NAGYON ALACSONY FEKVŐ KIJELZŐ
+========================================================= */
+
+@media (max-height: 400px) and (orientation: landscape) {
+
+    .flip-book {
+
+        height: calc(100dvh - 10px);
+
+        max-height: calc(100dvh - 10px);
+
+        width: auto;
+
+        aspect-ratio: 500 / 650;
+    }
+
+}
+
+
+/* =========================================================
+   IPHONE SAFE AREA
+========================================================= */
+
+@supports (padding: env(safe-area-inset-left)) {
+
+    @media (max-width: 900px) and (orientation: landscape) {
+
+        body {
+
+            padding-left:
+                env(safe-area-inset-left);
+
+            padding-right:
+                env(safe-area-inset-right);
+
+            box-sizing: border-box;
+        }
+
+    }
 
 }
 
 </style>
-
 </head>
 
 
@@ -487,10 +497,13 @@ button {
 
 
 <!-- =====================================================
-     PC TÖLTŐKÉPERNYŐ
+     ELFORDÍTÁSI ÜZENET
 ===================================================== -->
 
-<div id="loadingScreen"></div>
+<div class="rotate-message">
+    FORDÍTSD OLDALRA A TELEFONT!
+</div>
+
 
 
 <!-- =====================================================
@@ -500,648 +513,394 @@ button {
 <div class="flip-book" id="flipBook">
 
 
-  <!-- =========================================
-       BORÍTÓ
-  ========================================= -->
+    <!-- BORÍTÓ -->
 
-  <div class="page"
-       data-index="0">
+    <div class="page" data-index="0">
 
-    <div
-      class="front"
-      style="
-        background-image:
-          url('Borito.png');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
+        <div
+            class="front"
+            style="
+                background-image:url('Borito.png');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
 
-    <div class="back">
+        <div class="back">
 
-      <div
-        class="front"
-        style="
-          background-image:
-            url('borito belső.png');
+            <div
+                class="front"
+                style="
+                    background-image:url('borito belső.png');
+                    background-size:100% 100%;
+                    background-position:center;
+                    background-repeat:no-repeat;
+                ">
+            </div>
 
-          background-size:
-            100% 100%;
-
-          background-position:
-            center;
-
-          background-repeat:
-            no-repeat;
-        ">
-      </div>
+        </div>
 
     </div>
 
-  </div>
 
 
-  <!-- =========================================
-       1-2
-  ========================================= -->
+    <!-- 1 - 2 -->
 
-  <div class="page"
-       data-index="1">
+    <div class="page" data-index="1">
 
-    <div
-      class="front"
-      style="
-        background-image:
-          url('1. oldal.png');
+        <div
+            class="front"
+            style="
+                background-image:url('1. oldal.png');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-        background-size:
-          100% 100%;
+        <div
+            class="back"
+            style="
+                background-image:url('2. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
     </div>
 
 
-    <div
-      class="back"
-      style="
-        background-image:
-          url('2. oldal.jpg');
 
-        background-size:
-          100% 100%;
+    <!-- 3 - 4 -->
 
-        background-position:
-          center;
+    <div class="page" data-index="2">
 
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
+        <div
+            class="front"
+            style="
+                background-image:url('3. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-  </div>
+        <div
+            class="back"
+            style="
+                background-image:url('4. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-
-  <!-- =========================================
-       3-4
-  ========================================= -->
-
-  <div class="page"
-       data-index="2">
-
-    <div
-      class="front"
-      style="
-        background-image:
-          url('3. oldal.jpg');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
     </div>
 
 
-    <div
-      class="back"
-      style="
-        background-image:
-          url('4. oldal.jpg');
 
-        background-size:
-          100% 100%;
+    <!-- 5 - 6 -->
 
-        background-position:
-          center;
+    <div class="page" data-index="3">
 
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
+        <div
+            class="front"
+            style="
+                background-image:url('5. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-  </div>
+        <div
+            class="back"
+            style="
+                background-image:url('6. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-
-  <!-- =========================================
-       5-6
-  ========================================= -->
-
-  <div class="page"
-       data-index="3">
-
-    <div
-      class="front"
-      style="
-        background-image:
-          url('5. oldal.jpg');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
     </div>
 
 
-    <div
-      class="back"
-      style="
-        background-image:
-          url('6. oldal.jpg');
 
-        background-size:
-          100% 100%;
+    <!-- 7 - 8 -->
 
-        background-position:
-          center;
+    <div class="page" data-index="4">
 
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
+        <div
+            class="front"
+            style="
+                background-image:url('7. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-  </div>
+        <div
+            class="back"
+            style="
+                background-image:url('8. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
 
-
-  <!-- =========================================
-       7-8
-  ========================================= -->
-
-  <div class="page"
-       data-index="4">
-
-    <div
-      class="front"
-      style="
-        background-image:
-          url('7. oldal.jpg');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
     </div>
 
 
-    <div
-      class="back"
-      style="
-        background-image:
-          url('8. oldal.jpg');
 
-        background-size:
-          100% 100%;
+    <!-- 9 - HÁTSÓ BORÍTÓ -->
 
-        background-position:
-          center;
+    <div class="page" data-index="5">
 
-        background-repeat:
-          no-repeat;
-      ">
+        <div
+            class="front"
+            style="
+                background-image:url('9. oldal.jpg');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
+
+        <div
+            class="back"
+            style="
+                background-image:url('back.png');
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            ">
+        </div>
+
     </div>
-
-  </div>
-
-
-  <!-- =========================================
-       9 + HÁTLAP
-  ========================================= -->
-
-  <div class="page"
-       data-index="5">
-
-    <div
-      class="front"
-      style="
-        background-image:
-          url('9. oldal.jpg');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
-
-
-    <div
-      class="back"
-      style="
-        background-image:
-          url('back.png');
-
-        background-size:
-          100% 100%;
-
-        background-position:
-          center;
-
-        background-repeat:
-          no-repeat;
-      ">
-    </div>
-
-  </div>
-
 
 </div>
+
 
 
 <!-- =====================================================
-     DESKTOP GOMBOK
-===================================================== -->
+     PC GOMBOK
+========================================================= -->
 
 <div class="buttons">
 
-  <button onclick="prevPage()">
-    Vissza
-  </button>
+    <button onclick="prevPage()">
+        Vissza
+    </button>
 
-  <button onclick="nextPage()">
-    Előre
-  </button>
+    <button onclick="nextPage()">
+        Előre
+    </button>
 
 </div>
+
 
 
 <!-- =====================================================
      MOBIL ÉRINTÉSI TERÜLETEK
-===================================================== -->
+========================================================= -->
 
 <div
-  class="mobile-touch-left"
-  id="mobileLeft">
+    class="mobile-touch-left"
+    id="mobileLeft">
 </div>
-
 
 <div
-  class="mobile-touch-right"
-  id="mobileRight">
+    class="mobile-touch-right"
+    id="mobileRight">
 </div>
+
 
 
 <script>
 
-
-/* =====================================================
-   PC TÖLTŐKÉPERNYŐ
-===================================================== */
-
-const loadingScreen =
-  document.getElementById('loadingScreen');
-
-
-/*
-   Csak PC-n működik a töltőképernyő.
-   Mobilon azonnal eltűnik.
-*/
-
-function isPC() {
-
-  return window.innerWidth > 900;
-
-}
-
-
-/*
-   A könyv összes képének megvárása.
-*/
-
-function waitForImages() {
-
-  const images = [];
-
-  document
-    .querySelectorAll('*')
-    .forEach(element => {
-
-      const style =
-        window.getComputedStyle(element);
-
-      const background =
-        style.backgroundImage;
-
-      if (
-        background &&
-        background !== 'none'
-      ) {
-
-        const match =
-          background.match(
-            /url\(["']?(.*?)["']?\)/
-          );
-
-        if (match && match[1]) {
-
-          const image =
-            new Image();
-
-          image.src =
-            match[1];
-
-          images.push(image);
-
-        }
-
-      }
-
-    });
-
-
-  return Promise.all(
-
-    images.map(image => {
-
-      return new Promise(resolve => {
-
-        if (image.complete) {
-
-          resolve();
-
-        }
-
-        else {
-
-          image.onload =
-            resolve;
-
-          image.onerror =
-            resolve;
-
-        }
-
-      });
-
-    })
-
-  );
-
-}
-
-
-/*
-   Ha minden kép betöltődött,
-   eltűnik a loading screen.
-*/
-
-if (isPC()) {
-
-  waitForImages()
-    .then(() => {
-
-      loadingScreen.style.display =
-        'none';
-
-    });
-
-}
-
-else {
-
-  loadingScreen.style.display =
-    'none';
-
-}
-
-
-/* =====================================================
+/* =========================================================
    OLDALAK
-===================================================== */
+========================================================= */
 
 const pages =
-  Array.from(
-    document.querySelectorAll('.page')
-  );
-
+    Array.from(
+        document.querySelectorAll('.page')
+    );
 
 let current = -1;
 
 let flipping = false;
 
 
-/* =====================================================
+/* =========================================================
    OLDALAK FRISSÍTÉSE
-===================================================== */
+========================================================= */
 
 function updatePages(direction) {
 
-  pages.forEach(
-    (page, index) => {
+    pages.forEach((page, index) => {
 
-      if (current === -1) {
+        if (current === -1) {
 
-        /* Könyv csukva */
+            page.style.transform =
+                'rotateY(0deg)';
 
-        page.style.transform =
-          'rotateY(0deg)';
+            page.style.zIndex =
+                pages.length - index;
 
-        page.style.zIndex =
-          pages.length - index;
+        }
 
-      }
+        else if (index < current) {
 
-      else if (index < current) {
+            page.style.transform =
+                'rotateY(-180deg)';
 
-        /* Már átfordított */
+            page.style.zIndex =
+                index;
 
-        page.style.transform =
-          'rotateY(-180deg)';
+        }
 
-        page.style.zIndex =
-          index;
+        else if (index === current) {
 
-      }
+            page.style.transform =
+                direction === 'next'
+                    ? 'rotateY(-180deg)'
+                    : 'rotateY(0deg)';
 
-      else if (index === current) {
+            page.style.zIndex = 200;
 
-        page.style.transform =
-          direction === 'next'
-            ? 'rotateY(-180deg)'
-            : 'rotateY(0deg)';
+        }
 
-        page.style.zIndex =
-          200;
+        else {
 
-      }
+            page.style.transform =
+                'rotateY(0deg)';
 
-      else {
+            page.style.zIndex =
+                pages.length - index;
 
-        /* Még nem lapozott */
+        }
 
-        page.style.transform =
-          'rotateY(0deg)';
-
-        page.style.zIndex =
-          pages.length - index;
-
-      }
-
-    }
-  );
+    });
 
 }
 
 
-/* =====================================================
-   ELŐRE
-===================================================== */
+/* =========================================================
+   KÖVETKEZŐ
+========================================================= */
 
 function nextPage() {
 
-  if (
-    current <
-      pages.length - 1
-    &&
-    !flipping
-  ) {
+    if (
+        current < pages.length - 1 &&
+        !flipping
+    ) {
 
-    flipping = true;
+        flipping = true;
 
-    current++;
+        current++;
 
-    updatePages('next');
+        updatePages('next');
 
+        setTimeout(() => {
 
-    setTimeout(
-      () => {
+            flipping = false;
 
-        flipping = false;
-
-      },
-      1000
-    );
-
-  }
+        }, 1000);
+    }
 
 }
 
 
-/* =====================================================
-   VISSZA
-===================================================== */
+/* =========================================================
+   ELŐZŐ
+========================================================= */
 
 function prevPage() {
 
-  if (
-    current > -1
-    &&
-    !flipping
-  ) {
+    if (
+        current > -1 &&
+        !flipping
+    ) {
 
-    flipping = true;
+        flipping = true;
 
-    updatePages('prev');
+        updatePages('prev');
 
-    current--;
+        current--;
 
+        setTimeout(() => {
 
-    setTimeout(
-      () => {
+            flipping = false;
 
-        flipping = false;
-
-      },
-      1000
-    );
-
-  }
+        }, 1000);
+    }
 
 }
 
 
-/* =====================================================
-   MOBIL ÉRINTÉS
-===================================================== */
+/* =========================================================
+   MOBIL LAPOZÁS
+========================================================= */
 
 const mobileLeft =
-  document.getElementById(
-    'mobileLeft'
-  );
-
+    document.getElementById('mobileLeft');
 
 const mobileRight =
-  document.getElementById(
-    'mobileRight'
-  );
+    document.getElementById('mobileRight');
 
 
-/* BAL OLDAL */
+/* Bal oldal = vissza */
 
 mobileLeft.addEventListener(
-  'touchstart',
-  function(event) {
+    'touchstart',
+    function(e) {
 
-    event.preventDefault();
+        e.preventDefault();
 
-    prevPage();
+        prevPage();
 
-  },
-  {
-    passive: false
-  }
+    },
+    {
+        passive: false
+    }
 );
 
 
-/* JOBB OLDAL */
+/* Jobb oldal = előre */
 
 mobileRight.addEventListener(
-  'touchstart',
-  function(event) {
+    'touchstart',
+    function(e) {
 
-    event.preventDefault();
+        e.preventDefault();
 
-    nextPage();
+        nextPage();
 
-  },
-  {
-    passive: false
-  }
+    },
+    {
+        passive: false
+    }
 );
 
 
-/* =====================================================
+/* =========================================================
    KEZDŐÁLLAPOT
-===================================================== */
+========================================================= */
 
 updatePages('next');
 
-
 </script>
-
 
 </body>
 </html>
-
 
 
 
